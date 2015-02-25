@@ -1,0 +1,6 @@
+Thirdparty:
+    * Gather Windows DLLs (including zlib and libpng)
+
+Art:
+    * Strip down the Content Pipeline and ship it as a packer/unpacker
+

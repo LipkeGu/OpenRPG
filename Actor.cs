@@ -8,21 +8,21 @@ namespace OpenRPG
 		bool isDead = false;
 		public bool IsDead { get { return isDead; } }
 
-		public readonly World world;
+		public readonly World World;
 
-		readonly List<Trait> traits = new List<Trait>();
+		readonly List<ITrait> traits = new List<ITrait>();
 
 		public Actor(World world)
 		{
-			this.world = world;
+			World = world;
 		}
 
-		public void AddTrait(Trait t)
+		public void AddTrait(ITrait t)
 		{
 			traits.Add(t);
 		}
 
-		public T TraitOrNull<T>() where T : Trait
+		public T TraitOrNull<T>() where T : ITrait
 		{
 			return traits.OfType<T>().FirstOrDefault();
 		}
@@ -33,5 +33,5 @@ namespace OpenRPG
 		}
 	}
 
-	public class Trait { }
+	public interface ITrait { }
 }

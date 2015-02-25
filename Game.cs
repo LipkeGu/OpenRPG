@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,6 +14,8 @@ namespace OpenRPG
 		readonly GraphicsDeviceManager graphics;
 		readonly World world;
 
+		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+
 		public Game()
 		{
 			graphics = new GraphicsDeviceManager(this);
@@ -19,7 +23,7 @@ namespace OpenRPG
 			Content.RootDirectory = "Content";
 			TargetElapsedTime = TimeSpan.FromSeconds(1f / 30f);
 
-			world = new World();
+			world = new World(this);
 		}
 
 		protected override void Update(GameTime gameTime)
@@ -32,13 +36,22 @@ namespace OpenRPG
 		protected override void Draw(GameTime gameTime)
 		{
 			spriteBatch.Begin();
-			base.Draw(gameTime);
+			world.TickRender();
 			spriteBatch.End();
+			base.Draw(gameTime);
 		}
 
 		protected override void LoadContent()
 		{
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+
+			// https://github.com/flibitijibibo/FNA/issues/295
+			var pngs = Directory.EnumerateFiles(Content.RootDirectory, "*.png");
+			foreach (var png in pngs)
+			{
+				var filename = png.Split('/')[1].Split('.')[0];
+				Textures.Add(filename, Content.Load<Texture2D>(filename));
+			}
 		}
 	}
 }

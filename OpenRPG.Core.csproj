@@ -34,9 +34,13 @@
     <Compile Include="Traits\Health.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Traits\FakeTick.cs" />
+    <Compile Include="Traits\RenderImage.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="TraitInterfaces.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Traits\" />
+    <Folder Include="Graphics\" />
   </ItemGroup>
 </Project>

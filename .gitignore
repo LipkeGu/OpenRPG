@@ -3,6 +3,7 @@
 *.dylib
 *.dll
 *.userprefs
+*.config
 
 !/thirdparty/*
 

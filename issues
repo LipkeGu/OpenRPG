@@ -1,0 +1,6 @@
+Issue: libSDL2_image-2.0.0.dylib is trying to reference /usr/local/lib/libSDL2-2.0.0.dylib but it doesn't exist
+Solution: Install SDL2 and SDL2_image (universal -- 32 and 64bit)
+
+Issue: XNA/MonoGame/FNA make it hell to open a png (wants them marked as Content for xnb)
+Solution: Make sure you are using libpng and zlib and loading your (example) hero.png as ("hero").
+

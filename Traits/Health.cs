@@ -1,6 +1,6 @@
 ﻿namespace OpenRPG.Traits
 {
-	public class Health : Trait
+	public class Health : ITrait
 	{
 		public int Value;
 
