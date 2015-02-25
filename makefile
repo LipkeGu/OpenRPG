@@ -1,4 +1,4 @@
-all:
+all: clean
 	@cp thirdparty/*.dylib .
 	@cp thirdparty/*.config .
 	@xbuild /p:TreatWarningsAsErrors="true" /noconsolelogger /nologo
