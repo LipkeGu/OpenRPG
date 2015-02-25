@@ -5,14 +5,19 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenRPG.Graphics
 {
-	public class Sprite
+	public class SpriteSheet
 	{
 		public readonly Texture2D Texture;
 		public readonly int FrameCount;
 
 		public int CurrentFrame { get; private set; }
 
-		public Sprite(Game game, string imageName)
+		// TODO:
+		// Each frame should specify a width, height, x, and y (in another file?)
+		// * Assume the metadata file is imageName + .(yaml | json)
+		// * Otherwise build a custom format (on top of PNG?)
+
+		public SpriteSheet(Game game, string imageName)
 		{
 			imageName = imageName.EndsWith(".png") ? imageName : imageName + ".png";
 

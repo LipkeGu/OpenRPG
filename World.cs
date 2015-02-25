@@ -21,7 +21,7 @@ namespace OpenRPG
 
 			var tempActor = new Actor(this);
 			var ft = new FakeTick();
-			var sprite = new Sprite(game, "hero");
+			var sprite = new SpriteSheet(game, "hero");
 			var ri = new RenderImage(tempActor, sprite);
 
 			tempActor.AddTrait(ft);

@@ -12,6 +12,11 @@ namespace OpenRPG
 
 		readonly List<ITrait> traits = new List<ITrait>();
 
+		// TODO:
+		// * Possibly create Point3 type (x, y, z)
+		// Should we use Point (with large ints) as Position and Vector3 as locomotion vectors?
+		// If so: How will we translate from world -> screen if both use Point
+
 		public Actor(World world)
 		{
 			World = world;
