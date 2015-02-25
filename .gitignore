@@ -1,0 +1,13 @@
+*.exe
+*.mdb
+*.dylib
+*.dll
+*.userprefs
+
+!/thirdparty/*
+
+bin
+obj
+
+.DS_Store
+

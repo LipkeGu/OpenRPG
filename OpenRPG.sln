@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Core", "OpenRPG.Core.csproj", "{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Debug|x86.ActiveCfg = Debug|x86
+		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Debug|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		outputpath = .
+	EndGlobalSection
+EndGlobal
