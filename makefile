@@ -1,7 +1,7 @@
 all: clean
 	@cp thirdparty/*.dylib .
 	@cp thirdparty/*.config .
-	@xbuild /p:TreatWarningsAsErrors="true" /noconsolelogger /nologo
+	@xbuild /p:TreatWarningsAsErrors="true" /nologo
 
 clean:
 	@rm -rf *.exe
