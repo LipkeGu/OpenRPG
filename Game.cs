@@ -11,14 +11,13 @@ namespace OpenRPG
 		int ticks;
 		SpriteBatch spriteBatch;
 
-		readonly GraphicsDeviceManager graphics;
 		readonly World world;
 
 		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
 		public Game()
 		{
-			graphics = new GraphicsDeviceManager(this);
+			new GraphicsDeviceManager(this);
 			IsMouseVisible = true;
 			Content.RootDirectory = "Content";
 			TargetElapsedTime = TimeSpan.FromSeconds(1f / 30f);
