@@ -8,7 +8,7 @@ namespace OpenRPG
 {
 	public class Game : Microsoft.Xna.Framework.Game
 	{
-		public static const char PathSeperator = Path.DirectorySeparatorChar;
+		public static readonly char PathSeperator = Path.DirectorySeparatorChar;
 		
 		int ticks;
 		SpriteBatch spriteBatch;
