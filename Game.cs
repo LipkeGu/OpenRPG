@@ -8,6 +8,8 @@ namespace OpenRPG
 {
 	public class Game : Microsoft.Xna.Framework.Game
 	{
+		public static const char PathSeperator = Path.DirectorySeparatorChar;
+		
 		int ticks;
 		SpriteBatch spriteBatch;
 
@@ -48,7 +50,7 @@ namespace OpenRPG
 			var pngs = Directory.EnumerateFiles(Content.RootDirectory, "*.png");
 			foreach (var png in pngs)
 			{
-				var filename = png.Split('/')[1].Split('.')[0];
+				var filename = png.Split(PathSeperator)[1].Split('.')[0];
 				Textures.Add(filename, Content.Load<Texture2D>(filename));
 			}
 		}
