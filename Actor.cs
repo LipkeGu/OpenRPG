@@ -14,30 +14,35 @@ namespace OpenRPG
 			Name = actorName;
 
 			foreach (var traitNode in actorMeta.Tree.Nodes)
+				TraitInfos.Add(LoadTraitInfo(traitNode));
+		}
+
+		public ITraitInfo LoadTraitInfo(MetadataNode traitNode)
+		{
+			var info = Game.CreateObject<ITraitInfo>(traitNode.Key + "Info");
+			var fields = info.GetType().GetFields();
+
+			foreach (var propertyNode in traitNode.Tree.Nodes)
 			{
-				var info = Game.CreateObject<ITraitInfo>(traitNode.Key + "Info");
-				var fields = info.GetType().GetFields();
+				// Trait properties should not have child nodes
+				foreach (var bogusNode in propertyNode.Tree.Nodes)
+					throw new Exception("Bogus node at {0}".F(bogusNode.Source));
 
-				foreach (var propertyNode in traitNode.Tree.Nodes)
+				var field = fields.FirstOrDefault(f => f.Name == propertyNode.Key);
+				if (field == null)
+					continue;
+
+				try
 				{
-					// Trait properties should not have child nodes
-					foreach (var bogusNode in propertyNode.Tree.Nodes)
-						throw new Exception("Bogus node at {0}".F(bogusNode.Source));
-
-					var field = fields.FirstOrDefault(f => f.Name == propertyNode.Key);
-					if (field == null)
-						continue;
-
-					try
-					{
-						field.SetValue(info, ParseField(propertyNode.Tree.Value, field.FieldType));
-					}
-					catch (Exception e)
-					{
-						throw new Exception("Bogus input value at {0}.\n".F(propertyNode.Source), e);
-					}
+					field.SetValue(info, ParseField(propertyNode.Tree.Value, field.FieldType));
+				}
+				catch (Exception e)
+				{
+					throw new Exception("Bogus input value at {0}.\n".F(propertyNode.Source), e);
 				}
 			}
+
+			return info;
 		}
 
 		// TODO: Move this to a (static?) class so it doesn't clutter ActorInfo
@@ -60,6 +65,7 @@ namespace OpenRPG
 		public bool IsDead { get { return isDead; } }
 
 		public readonly World World;
+		public readonly string Name;
 		public readonly ActorInfo Info;
 
 		readonly List<ITrait> traits = new List<ITrait>();
@@ -69,10 +75,11 @@ namespace OpenRPG
 		// Should we use Point (with large ints) as Position and Vector3 as locomotion vectors?
 		// If so: How will we translate from world -> screen if both use Point
 
-		public Actor(ActorInfo info, World world)
+		public Actor(World world, string name)
 		{
-			Info = info;
 			World = world;
+			Name = name;
+			Info = World.Game.ActorRules[name];
 		}
 
 		public void AddTrait(ITrait t)

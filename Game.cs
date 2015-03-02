@@ -11,7 +11,7 @@ namespace OpenRPG
 		public static readonly char PathSeperator = Path.DirectorySeparatorChar;
 		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 
-		public Dictionary<string, MetadataNode> ActorRules = new Dictionary<string, MetadataNode>();
+		public Dictionary<string, ActorInfo> ActorRules = new Dictionary<string, ActorInfo>();
 
 		int ticks;
 		SpriteBatch spriteBatch;
@@ -30,19 +30,28 @@ namespace OpenRPG
 			world = new World(this);
 			creator = new ObjectCreator();
 
-			var rules = MetadataTree.NodesFromFile("rules.meta");
-			LoadActorTypes(rules);
 		}
 
-		void LoadActorTypes(IList<MetadataNode> rules)
+		// TODO: fixme with an ActorInit (ASAP)
+		void LoadActorTypes(string filename)
 		{
-			foreach (var meta in rules)
-				ActorRules.Add(meta.Key.ToLowerInvariant(), meta);
+			var rules = MetadataTree.NodesFromFile(filename);
 
-			foreach (var actorMeta in ActorRules)
+			foreach (var actorDef in rules)
 			{
-				var info = new ActorInfo(actorMeta.Key, actorMeta.Value);
-				var actor = new Actor(info, world);
+				var name = actorDef.Key.ToLowerInvariant();
+
+				var info = new ActorInfo(name, actorDef);
+				ActorRules.Add(name, info);
+
+				// This is where the bogosity starts
+				// Just because we load the rules doesn't mean we want an instance
+
+				var actor = new Actor(world, name);
+
+				foreach (var traitInfo in info.TraitInfos)
+					actor.AddTrait(traitInfo.CreateTrait(actor) as ITrait);
+
 				world.AddActor(actor);
 			}
 		}
@@ -78,6 +87,10 @@ namespace OpenRPG
 				var filename = png.Split(PathSeperator)[1].Split('.')[0];
 				Textures.Add(filename, Content.Load<Texture2D>(filename));
 			}
+
+			// TODO: This also creates an instance of the actor
+			// which is required because we don't have an intermediate ActorInit
+			LoadActorTypes("rules.meta");
 		}
 	}
 }

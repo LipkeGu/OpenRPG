@@ -6,7 +6,7 @@ namespace OpenRPG.Traits
 	{
 		public readonly int Value = 100;
 
-		public object CreateTrait(ActorInit init) { return new Health(init.Self, this); }
+		public object CreateTrait(Actor actor) { return new Health(actor, this); }
 	}
 
 	public class Health : ITrait
@@ -18,8 +18,6 @@ namespace OpenRPG.Traits
 		public Health(Actor self, HealthInfo info)
 		{
 			MaxValue = Value = info.Value;
-
-			Console.WriteLine(Value);
 		}
 	}
 }

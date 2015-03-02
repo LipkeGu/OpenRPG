@@ -7,7 +7,7 @@ namespace OpenRPG.Traits
 		// Every 2 seconds
 		public readonly int Interval = 60;
 
-		public object CreateTrait(ActorInit init) { return new FakeTick(init.Self, this); }
+		public object CreateTrait(Actor actor) { return new FakeTick(actor, this); }
 	}
 
 	public class FakeTick : ITrait, ITick

@@ -34,11 +34,9 @@
     <Compile Include="Traits\Health.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Traits\FakeTick.cs" />
-    <Compile Include="Traits\RenderImage.cs" />
     <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="TraitInterfaces.cs" />
     <Compile Include="ObjectCreator.cs" />
-    <Compile Include="ActorInit.cs" />
     <Compile Include="Exts.cs" />
     <Compile Include="MetadataTree.cs" />
   </ItemGroup>
