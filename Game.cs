@@ -9,13 +9,16 @@ namespace OpenRPG
 	public class Game : Microsoft.Xna.Framework.Game
 	{
 		public static readonly char PathSeperator = Path.DirectorySeparatorChar;
+		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+
+		public Dictionary<string, MetadataNode> ActorRules = new Dictionary<string, MetadataNode>();
+
 		int ticks;
 		SpriteBatch spriteBatch;
 
 		readonly World world;
-		static ObjectCreator creator = new ObjectCreator();
 
-		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+		static ObjectCreator creator = new ObjectCreator();
 
 		public Game()
 		{
@@ -33,11 +36,12 @@ namespace OpenRPG
 
 		void LoadActorTypes(IList<MetadataNode> rules)
 		{
-			// TODO: Metadata.ToDictionary() so we can do rules["MyActorType"]
-
 			foreach (var meta in rules)
+				ActorRules.Add(meta.Key.ToLowerInvariant(), meta);
+
+			foreach (var actorMeta in ActorRules)
 			{
-				var info = new ActorInfo(meta.Key, meta);
+				var info = new ActorInfo(actorMeta.Key, actorMeta.Value);
 				var actor = new Actor(info, world);
 				world.AddActor(actor);
 			}

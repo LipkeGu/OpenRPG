@@ -61,7 +61,6 @@ namespace OpenRPG
 				if (fullLineCommentIdx != -1)
 					line = line.Substring(0, fullLineCommentIdx).TrimEnd();
 
-
 				var inlineCommentStart = line.IndexOf("//");
 				if (inlineCommentStart != -1)
 				{
@@ -91,26 +90,26 @@ namespace OpenRPG
 
 					switch (currChar)
 					{
-					case ' ':
-						spaceCount++;
+						case ' ':
+							spaceCount++;
 
-						if (spaceCount >= SpacesPerLevel)
-						{
-							spaceCount = 0;
-							indentLevel++;
-						}
+							if (spaceCount >= SpacesPerLevel)
+							{
+								spaceCount = 0;
+								indentLevel++;
+							}
 
-						charPos++;
-						break;
+							charPos++;
+							break;
 
-					case '\t':
-						throw new Exception("Tab indentations are not yet allowed. {0} ~{1}".F(filename, lineNum));
+						case '\t':
+							throw new Exception("Tab indentations are not yet allowed. {0} ~{1}".F(filename, lineNum));
 
-					case '\n':
-					case '\r':
-					default:
-						isTextStart = true;
-						break;
+						case '\n':
+						case '\r':
+						default:
+							isTextStart = true;
+							break;
 					}
 				}
 

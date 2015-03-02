@@ -33,7 +33,12 @@ namespace OpenRPG
 		public void Tick()
 		{
 			if (AbsoluteTicks == 0)
-				Console.WriteLine("\nActors from meta: {0}\n", actors.Count);
+			{
+				Console.WriteLine("Actors from meta:");
+
+				foreach (var actor in actors)
+					Console.WriteLine("\t" + actor.Info.Name);
+			}
 
 			foreach (var actor in actors)
 				foreach (var trait in actor.TraitsImplementing<ITick>())
