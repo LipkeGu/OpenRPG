@@ -1,9 +1,0 @@
-Hero:
-    Health:
-        Value: 3000
-    FakeTick:
-        Interval: 30
-
-FakeActor:
-    Health:
-        Value: 10

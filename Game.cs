@@ -25,6 +25,8 @@ namespace OpenRPG
 			new GraphicsDeviceManager(this);
 			IsMouseVisible = true;
 			Content.RootDirectory = "Content";
+
+			// 30 ticks/second
 			TargetElapsedTime = TimeSpan.FromSeconds(1f / 30f);
 
 			world = new World(this);
@@ -42,6 +44,10 @@ namespace OpenRPG
 				var name = actorDef.Key.ToLowerInvariant();
 
 				var info = new ActorInfo(name, actorDef);
+
+				if (ActorRules.ContainsKey(name))
+					throw new ArgumentException("Duplicate definition for `{0}`.".F(name));
+
 				ActorRules.Add(name, info);
 
 				// This is where the bogosity starts
@@ -84,13 +90,16 @@ namespace OpenRPG
 			var pngs = Directory.EnumerateFiles(Content.RootDirectory, "*.png");
 			foreach (var png in pngs)
 			{
-				var filename = png.Split(PathSeperator)[1].Split('.')[0];
+				var filename = png.Split(PathSeperator)[1].Split('.')[0].ToLowerInvariant();
 				Textures.Add(filename, Content.Load<Texture2D>(filename));
 			}
 
+			var rules = Directory.EnumerateFiles("rules", "*.meta");
+
 			// TODO: This also creates an instance of the actor
 			// which is required because we don't have an intermediate ActorInit
-			LoadActorTypes("rules.meta");
+			foreach (var ruleFile in rules)
+				LoadActorTypes(ruleFile);
 		}
 	}
 }
