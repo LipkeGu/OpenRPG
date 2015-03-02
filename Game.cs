@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace OpenRPG
 {
@@ -15,8 +16,11 @@ namespace OpenRPG
 
 		int ticks;
 		SpriteBatch spriteBatch;
+		MouseState prevMouseState;
+		KeyboardState prevKeyboardState;
 
 		readonly World world;
+		readonly InputManager inputMan;
 
 		static ObjectCreator creator = new ObjectCreator();
 
@@ -25,11 +29,14 @@ namespace OpenRPG
 			new GraphicsDeviceManager(this);
 			IsMouseVisible = true;
 			Content.RootDirectory = "Content";
+			Window.AllowUserResizing = false;
 
 			// 30 ticks/second
 			TargetElapsedTime = TimeSpan.FromSeconds(1f / 30f);
 
 			world = new World(this);
+			inputMan = new InputManager(this);
+
 			creator = new ObjectCreator();
 
 		}
@@ -62,13 +69,25 @@ namespace OpenRPG
 			}
 		}
 
-		public static T CreateObject<T>(string className)
+		public static T CreateObject<T>(string infoClassName)
 		{
-			return creator.CreateObject<T>(className);
+			return creator.CreateObject<T>(infoClassName);
 		}
 
 		protected override void Update(GameTime gameTime)
 		{
+			var mouseState = Mouse.GetState();
+			var keyboardState = Keyboard.GetState();
+
+			if (mouseState != prevMouseState)
+				inputMan.HandleMouse(mouseState);
+
+			if (keyboardState != prevKeyboardState)
+				inputMan.HandleKeyboard(keyboardState);
+
+			prevMouseState = mouseState;
+			prevKeyboardState = keyboardState;
+
 			++ticks;
 			world.Tick();
 			base.Update(gameTime);

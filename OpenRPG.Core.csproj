@@ -39,6 +39,7 @@
     <Compile Include="ObjectCreator.cs" />
     <Compile Include="Exts.cs" />
     <Compile Include="MetadataTree.cs" />
+    <Compile Include="InputManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
