@@ -1,14 +1,66 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenRPG
 {
+	public class ActorInfo
+	{
+		public readonly string Name;
+		public readonly List<ITraitInfo> TraitInfos = new List<ITraitInfo>();
+
+		public ActorInfo(string actorName, MetadataNode actorMeta)
+		{
+			Name = actorName;
+
+			foreach (var traitNode in actorMeta.Tree.Nodes)
+			{
+				var info = Game.CreateObject<ITraitInfo>(traitNode.Key + "Info");
+				var fields = info.GetType().GetFields();
+
+				foreach (var propertyNode in traitNode.Tree.Nodes)
+				{
+					// Trait properties should not have child nodes
+					foreach (var bogusNode in propertyNode.Tree.Nodes)
+						throw new Exception("Bogus node at {0}".F(bogusNode.Source));
+
+					var field = fields.FirstOrDefault(f => f.Name == propertyNode.Key);
+					if (field == null)
+						continue;
+
+					try
+					{
+						field.SetValue(info, ParseField(propertyNode.Tree.Value, field.FieldType));
+					}
+					catch (Exception e)
+					{
+						throw new Exception("Bogus input value at {0}.\n".F(propertyNode.Source), e);
+					}
+				}
+			}
+		}
+
+		// TODO: Move this to a (static?) class so it doesn't clutter ActorInfo
+		/// <summary>Used to set field values for constructed objects.</summary>
+		static object ParseField(string str, Type fieldType)
+		{
+			if (fieldType == typeof(string))
+				return str.Trim();
+
+			if (fieldType == typeof(int))
+				return int.Parse(str);
+
+			return null;
+		}
+	}
+
 	public class Actor
 	{
 		bool isDead = false;
 		public bool IsDead { get { return isDead; } }
 
 		public readonly World World;
+		public readonly ActorInfo Info;
 
 		readonly List<ITrait> traits = new List<ITrait>();
 
@@ -17,8 +69,9 @@ namespace OpenRPG
 		// Should we use Point (with large ints) as Position and Vector3 as locomotion vectors?
 		// If so: How will we translate from world -> screen if both use Point
 
-		public Actor(World world)
+		public Actor(ActorInfo info, World world)
 		{
+			Info = info;
 			World = world;
 		}
 

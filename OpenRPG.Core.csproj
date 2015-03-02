@@ -37,6 +37,10 @@
     <Compile Include="Traits\RenderImage.cs" />
     <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="TraitInterfaces.cs" />
+    <Compile Include="ObjectCreator.cs" />
+    <Compile Include="ActorInit.cs" />
+    <Compile Include="Exts.cs" />
+    <Compile Include="MetadataTree.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

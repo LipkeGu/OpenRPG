@@ -10,23 +10,14 @@ namespace OpenRPG
 		public IEnumerable<Actor> Actors { get { return actors; } }
 		public int AbsoluteTicks;
 
-		public readonly Game GameReference;
+		public readonly Game Game;
 
 		readonly List<Actor> actors = new List<Actor>();
 		readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>(100);
 
 		public World(Game game)
 		{
-			GameReference = game;
-
-			var tempActor = new Actor(this);
-			var ft = new FakeTick();
-			var sprite = new SpriteSheet(game, "hero");
-			var ri = new RenderImage(tempActor, sprite);
-
-			tempActor.AddTrait(ft);
-			tempActor.AddTrait(ri);
-			AddActor(tempActor);
+			Game = game;
 		}
 
 		public void AddFrameEndAction(Action<World> a)
@@ -41,7 +32,8 @@ namespace OpenRPG
 
 		public void Tick()
 		{
-			Console.WriteLine("World tick {0}", AbsoluteTicks);
+			if (AbsoluteTicks == 0)
+				Console.WriteLine("\nActors from meta: {0}\n", actors.Count);
 
 			foreach (var actor in actors)
 				foreach (var trait in actor.TraitsImplementing<ITick>())
