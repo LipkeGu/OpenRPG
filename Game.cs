@@ -4,18 +4,22 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OpenRPG.Graphics;
 
 namespace OpenRPG
 {
 	public class Game : Microsoft.Xna.Framework.Game
 	{
 		public static readonly char PathSeperator = Path.DirectorySeparatorChar;
-		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+		public static readonly string ContentDirectory = "Content";
 
-		public Dictionary<string, ActorInfo> ActorRules = new Dictionary<string, ActorInfo>();
+		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
+		public readonly Dictionary<string, Animation> Animations = new Dictionary<string, Animation>();
+		public readonly Dictionary<string, ActorInfo> ActorRules = new Dictionary<string, ActorInfo>();
+
+		public SpriteBatch SpriteBatch { get; private set; }
 
 		int ticks;
-		SpriteBatch spriteBatch;
 		MouseState prevMouseState;
 		KeyboardState prevKeyboardState;
 
@@ -28,7 +32,7 @@ namespace OpenRPG
 		{
 			new GraphicsDeviceManager(this);
 			IsMouseVisible = true;
-			Content.RootDirectory = "Content";
+			Content.RootDirectory = ContentDirectory;
 			Window.AllowUserResizing = false;
 
 			// 30 ticks/second
@@ -95,22 +99,31 @@ namespace OpenRPG
 
 		protected override void Draw(GameTime gameTime)
 		{
-			spriteBatch.Begin();
+			SpriteBatch.Begin();
 			world.TickRender();
-			spriteBatch.End();
+			SpriteBatch.End();
 			base.Draw(gameTime);
+		}
+
+		public static string ContentFileFromString(string str)
+		{
+			return ContentDirectory+ PathSeperator + str;
 		}
 
 		protected override void LoadContent()
 		{
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+			SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-			// https://github.com/flibitijibibo/FNA/issues/295
-			var pngs = Directory.EnumerateFiles(Content.RootDirectory, "*.png");
-			foreach (var png in pngs)
+			// 1) Parse data tree (get filenames to load)
+			// 2) Load image files as Texture2D
+			// 3) Construct Sprite -> Animation relationship
+
+			var anims = Directory.EnumerateFiles("rules/anims", "*.meta");
+			foreach (var animFile in anims)
 			{
-				var filename = png.Split(PathSeperator)[1].Split('.')[0].ToLowerInvariant();
-				Textures.Add(filename, Content.Load<Texture2D>(filename));
+				var metaNodes = MetadataTree.NodesFromFile(animFile);
+				foreach (var node in metaNodes)
+					Animations.Add(node.Key, new Animation(world, node.Key, node.ChildTree.Nodes));
 			}
 
 			var rules = Directory.EnumerateFiles("rules", "*.meta");

@@ -16,30 +16,58 @@ namespace OpenRPG
 	public class MetadataNode
 	{
 		public Source Source;
-		public string Key;
-		public MetadataTree Tree;
+		public readonly string Key;
+		public readonly string Value;
+		public readonly MetadataTree ChildTree;
 
-		public MetadataNode(string key, MetadataTree value)
+		public MetadataNode(string key, string value, MetadataTree childTree)
 		{
 			Key = key;
-			Tree = value;
+			Value = value;
+			ChildTree = childTree;
 		}
 
 		public MetadataNode(string key, string value, List<MetadataNode> nodes)
-			: this(key, new MetadataTree(value, nodes)) { }
+			: this(key, value, new MetadataTree(value, nodes)) { }
+	}
+
+	public class MetadataException : Exception
+	{
+		public MetadataException(string message, Exception inner = null)
+			: base(message, inner) { }
 	}
 
 	/// <summary>Represents a section definition in a parsed file.</summary>
 	public class MetadataTree
 	{
 		const int SpacesPerLevel = 4;
-		public string Value;
+		public string Name;
 		public List<MetadataNode> Nodes;
 
-		public MetadataTree(string value, List<MetadataNode> nodes)
+		public MetadataTree(string name, List<MetadataNode> nodes)
 		{
-			Value = value;
+			Name = name;
 			Nodes = nodes ?? new List<MetadataNode>();
+		}
+
+		public Dictionary<string, MetadataNode> ToDictionary()
+		{
+			var ret = new Dictionary<string, MetadataNode>();
+			foreach (var node in Nodes)
+			{
+				if (ret.ContainsKey(node.Key))
+					throw new MetadataException("Duplicate value `{0}` found at {1}.".F(node.Key, node.Source));
+
+				ret.Add(node.Key, node);
+			}
+
+			return ret;
+		}
+
+		public static MetadataTree FromFile(string filename)
+		{
+			var nodes = NodesFromFile(filename);
+			return new MetadataTree(nodes[0].Key, nodes);
 		}
 
 		public static List<MetadataNode> NodesFromFile(string filename)

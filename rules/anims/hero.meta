@@ -1,0 +1,6 @@
+hero: ** Animation name
+    run-north: ** Sequence name
+        Length: 8 ** Sequence property
+        FrameSize: 128, 96
+        ** FrameSize: 8, 16
+

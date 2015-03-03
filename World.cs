@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using OpenRPG.Traits;
-using OpenRPG.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace OpenRPG
 {
@@ -34,10 +33,15 @@ namespace OpenRPG
 		{
 			if (AbsoluteTicks == 0)
 			{
-				Console.WriteLine("Actors from meta:");
+				Console.WriteLine("Actor types from meta:");
 
 				foreach (var actor in actors)
+				{
 					Console.WriteLine("\t" + actor.Info.Name);
+
+					foreach (var trait in actor.Info.TraitInfos)
+						Console.WriteLine("\t\t" + trait.GetType().ToString().ReverseSubstring(4));
+				}
 			}
 
 			foreach (var actor in actors)
@@ -55,6 +59,17 @@ namespace OpenRPG
 			foreach (var actor in actors)
 				foreach (var trait in actor.TraitsImplementing<ITickRender>())
 					trait.TickRender(actor);
+		}
+
+		public void RenderImage(Sprite sprite, Point onScreenPoint)
+		{
+			var s = sprite.Size;
+			var screenRect = new Rectangle(onScreenPoint.X, onScreenPoint.Y, s.Width, s.Height);
+
+			Game.SpriteBatch.Draw(sprite.Texture,
+				screenRect,
+				null,
+				Color.White);
 		}
 	}
 }

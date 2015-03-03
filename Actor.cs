@@ -13,7 +13,7 @@ namespace OpenRPG
 		{
 			Name = actorName;
 
-			foreach (var traitNode in actorMeta.Tree.Nodes)
+			foreach (var traitNode in actorMeta.ChildTree.Nodes)
 				TraitInfos.Add(LoadTraitInfo(traitNode));
 		}
 
@@ -22,10 +22,10 @@ namespace OpenRPG
 			var info = Game.CreateObject<ITraitInfo>(traitNode.Key + "Info");
 			var fields = info.GetType().GetFields();
 
-			foreach (var propertyNode in traitNode.Tree.Nodes)
+			foreach (var propertyNode in traitNode.ChildTree.Nodes)
 			{
 				// Trait properties should not have child nodes
-				foreach (var bogusNode in propertyNode.Tree.Nodes)
+				foreach (var bogusNode in propertyNode.ChildTree.Nodes)
 					throw new Exception("Bogus node at {0}".F(bogusNode.Source));
 
 				var field = fields.FirstOrDefault(f => f.Name == propertyNode.Key);
@@ -34,7 +34,7 @@ namespace OpenRPG
 
 				try
 				{
-					field.SetValue(info, ParseField(propertyNode.Tree.Value, field.FieldType));
+					field.SetValue(info, FieldLoader.Load(propertyNode.ChildTree.Name, field.FieldType));
 				}
 				catch (Exception e)
 				{
@@ -44,25 +44,14 @@ namespace OpenRPG
 
 			return info;
 		}
-
-		// TODO: Move this to a (static?) class so it doesn't clutter ActorInfo
-		/// <summary>Used to set field values for constructed objects.</summary>
-		static object ParseField(string str, Type fieldType)
-		{
-			if (fieldType == typeof(string))
-				return str.Trim();
-
-			if (fieldType == typeof(int))
-				return int.Parse(str);
-
-			return null;
-		}
 	}
 
 	public class Actor
 	{
 		bool isDead = false;
 		public bool IsDead { get { return isDead; } }
+
+		public Point3 Position { get; private set; }
 
 		public readonly World World;
 		public readonly string Name;

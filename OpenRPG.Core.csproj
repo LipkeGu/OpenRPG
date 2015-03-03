@@ -25,6 +25,7 @@
     <Reference Include="FNA">
       <HintPath>thirdparty\FNA.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -34,12 +35,16 @@
     <Compile Include="Traits\Health.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Traits\FakeTick.cs" />
-    <Compile Include="Graphics\SpriteSheet.cs" />
     <Compile Include="TraitInterfaces.cs" />
     <Compile Include="ObjectCreator.cs" />
     <Compile Include="Exts.cs" />
     <Compile Include="MetadataTree.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="Graphics\Animation.cs" />
+    <Compile Include="FieldManager.cs" />
+    <Compile Include="Traits\RenderSprite.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\Point3.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

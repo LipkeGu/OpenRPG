@@ -3,5 +3,5 @@ Hero:
         Value: 100
     FakeTick:
         Interval: 30 ** 1 time per second (30 ticks/second)
-
+    RenderSprite:
 
