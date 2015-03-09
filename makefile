@@ -1,5 +1,6 @@
 all: clean
-	@cp thirdparty/*.dylib .
+	@cp thirdparty/osx/*.dylib .
+	@cp thirdparty/win/*.dll .
 	@cp thirdparty/*.config .
 	@xbuild /p:TreatWarningsAsErrors="true" /nologo
 

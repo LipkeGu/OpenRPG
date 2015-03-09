@@ -5,7 +5,8 @@
 *.userprefs
 *.config
 
-!/thirdparty/*
+!/thirdparty/osx/*
+!/thirdparty/win/*
 
 bin
 obj
