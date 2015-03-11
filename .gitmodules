@@ -1,0 +1,3 @@
+[submodule "lib/fna"]
+	path = lib/fna
+	url = git@github.com:flibitijibibo/FNA.git
