@@ -4,7 +4,7 @@ namespace OpenRPG.Traits
 {
 	public class FakeTickInfo : ITraitInfo
 	{
-		// Every 2 seconds
+		// Measured in ticks .. every 2 seconds
 		public readonly int Interval = 60;
 
 		public object CreateTrait(Actor actor) { return new FakeTick(actor, this); }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace OpenRPG
 {
@@ -61,14 +62,13 @@ namespace OpenRPG
 					trait.TickRender(actor);
 		}
 
-		public void RenderImage(Sprite sprite, Point onScreenPoint)
+		public void RenderImage(Sprite sprite, Rectangle sourceRect, Point onScreenPoint)
 		{
-			var s = sprite.Size;
-			var screenRect = new Rectangle(onScreenPoint.X, onScreenPoint.Y, s.Width, s.Height);
+			var screenRect = new Rectangle(onScreenPoint.X, onScreenPoint.Y, sourceRect.Width, sourceRect.Height);
 
 			Game.SpriteBatch.Draw(sprite.Texture,
 				screenRect,
-				null,
+				sourceRect,
 				Color.White);
 		}
 	}

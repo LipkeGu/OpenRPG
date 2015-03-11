@@ -34,25 +34,14 @@ namespace OpenRPG.Graphics
 				if (properties.ContainsKey("FrameSize"))
 					size = FieldLoader.Load<Size>(properties["FrameSize"].Value);
 
+				// Approx. 1 quarter of a second .. 7 ticks
+				var ticks = (int)(30 * 0.25);
+				if (properties.ContainsKey("Ticks"))
+					int.TryParse(properties["Ticks"].Value, out ticks);
+
 				// TODO: 1 sprite per anim, Sequence should point to N frames in that sprite
-				Sequences[i] = new Sequence(sequenceNode.Key, length, sprite, size);
+				Sequences[i] = new Sequence(sequenceNode.Key, length, ticks, sprite, size);
 			}
-		}
-	}
-
-	public class Sequence
-	{
-		public readonly string Name;
-		public readonly int Length;
-		public readonly Sprite Sprite;
-		public readonly Size FrameSize;
-
-		public Sequence(string name, int length, Sprite sprite, Size frameSize)
-		{
-			Name = name;
-			Length = length;
-			Sprite = sprite;
-			FrameSize = frameSize;
 		}
 	}
 }

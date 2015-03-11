@@ -45,6 +45,7 @@
     <Compile Include="Traits\RenderSprite.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Point3.cs" />
+    <Compile Include="Graphics\Sequence.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -40,9 +40,7 @@ namespace OpenRPG
 
 			world = new World(this);
 			inputMan = new InputManager(this);
-
 			creator = new ObjectCreator();
-
 		}
 
 		// TODO: fixme with an ActorInit (ASAP)
@@ -53,7 +51,6 @@ namespace OpenRPG
 			foreach (var actorDef in rules)
 			{
 				var name = actorDef.Key.ToLowerInvariant();
-
 				var info = new ActorInfo(name, actorDef);
 
 				if (ActorRules.ContainsKey(name))
@@ -99,6 +96,7 @@ namespace OpenRPG
 
 		protected override void Draw(GameTime gameTime)
 		{
+			GraphicsDevice.Clear(Color.Black);
 			SpriteBatch.Begin();
 			world.TickRender();
 			SpriteBatch.End();
