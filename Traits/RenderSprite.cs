@@ -43,8 +43,14 @@ namespace OpenRPG.Traits
 
 			var frameSize = CurrentSequence.FrameSize;
 
-			// Y is hardcoded to 0 because I can't figure out how to calculate rows/columns correctly (using modulo)
-			var sourceRect = new Rectangle(currentFrame * frameSize.Width, 0 * frameSize.Height, frameSize.Width, frameSize.Height);
+			var row = Math.Floor((double)currentFrame / CurrentSequence.FramesPerRow);
+			var col = Math.Floor((double)currentFrame % CurrentSequence.FramesPerRow);
+
+			var sourceRect = new Rectangle(
+				(int)(col * frameSize.Width),
+				(int)(row * frameSize.Height),
+				frameSize.Width,
+				frameSize.Height);
 
 			if (--ticks == 0)
 			{

@@ -9,6 +9,7 @@ namespace OpenRPG.Graphics
 		public readonly int Ticks;
 		public readonly Sprite Sprite;
 		public readonly Size FrameSize;
+		public readonly int FramesPerRow;
 
 		public Sequence(string name, int length, int ticks, Sprite sprite, Size frameSize)
 		{
@@ -17,6 +18,11 @@ namespace OpenRPG.Graphics
 			Ticks = ticks;
 			Sprite = sprite;
 			FrameSize = frameSize;
+
+			// Assuming no borders around the frames
+			// and that the row spans the entire sheet
+			// TODO: don't assume
+			FramesPerRow = sprite.Size.Width / frameSize.Width;
 		}
 	}
 }
