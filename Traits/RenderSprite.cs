@@ -6,7 +6,7 @@ namespace OpenRPG.Traits
 {
 	public class RenderSpriteInfo : ITraitInfo
 	{
-		public readonly string Image = null;
+		public readonly string Animation = null;
 
 		public object CreateTrait(Actor actor) { return new RenderSprite(actor, this); }
 	}
@@ -24,7 +24,7 @@ namespace OpenRPG.Traits
 
 		public RenderSprite(Actor self, RenderSpriteInfo info)
 		{
-			image = info.Image ?? self.Info.Name;
+			image = info.Animation ?? self.Info.Name;
 
 			sequences = self.World.Game.Animations[image].Sequences;
 			if (sequences.Length == 0)
