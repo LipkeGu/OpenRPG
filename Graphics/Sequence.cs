@@ -6,16 +6,16 @@ namespace OpenRPG.Graphics
 	{
 		public readonly string Name;
 		public readonly int Length;
-		public readonly int Ticks;
+		public readonly int TicksPerFrame;
 		public readonly Sprite Sprite;
 		public readonly Size FrameSize;
 		public readonly int FramesPerRow;
 
-		public Sequence(string name, int length, int ticks, Sprite sprite, Size frameSize)
+		public Sequence(string name, int length, int ticksPerFrame, Sprite sprite, Size frameSize)
 		{
 			Name = name;
 			Length = length;
-			Ticks = ticks;
+			TicksPerFrame = ticksPerFrame;
 			Sprite = sprite;
 			FrameSize = frameSize;
 

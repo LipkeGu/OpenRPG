@@ -75,6 +75,7 @@ namespace OpenRPG
 			return creator.CreateObject<T>(infoClassName);
 		}
 
+		// TODO: Properly use gameTime so we're independent of tick-rate
 		protected override void Update(GameTime gameTime)
 		{
 			var mouseState = Mouse.GetState();

@@ -31,7 +31,7 @@ namespace OpenRPG.Traits
 				throw new MetadataException("Animation `{0}` has no sequences.".F(image));
 
 			CurrentSequence = sequences[0];
-			ticksPerFrame = CurrentSequence.Ticks;
+			ticksPerFrame = CurrentSequence.TicksPerFrame;
 			currentFrame = 0;
 			ticks = ticksPerFrame;
 		}

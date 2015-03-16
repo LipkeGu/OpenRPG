@@ -19,8 +19,6 @@ namespace OpenRPG.Traits
 		{
 			this.info = info;
 			ticks = info.Interval;
-
-			Console.WriteLine("Created FakeTick.");
 		}
 
 		public void Tick(Actor self)
