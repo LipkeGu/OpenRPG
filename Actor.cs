@@ -44,6 +44,11 @@ namespace OpenRPG
 
 			return info;
 		}
+
+		public T GetOrNull<T>() where T : ITraitInfo
+		{
+			return TraitInfos.OfType<T>().FirstOrDefault();
+		}
 	}
 
 	public class Actor
