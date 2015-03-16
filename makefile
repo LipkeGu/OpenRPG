@@ -32,3 +32,6 @@ clean:
 	@rm -rf *.config
 	@printf " done\n"
 
+run:
+	@mono --debug game.exe
+
