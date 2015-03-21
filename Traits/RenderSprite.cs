@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using OpenRPG.Graphics;
+using SSize = System.Drawing.Size;
 
 namespace OpenRPG.Traits
 {
@@ -15,6 +16,7 @@ namespace OpenRPG.Traits
 	{
 		public Sequence CurrentSequence { get; private set; }
 
+		readonly World world;
 		readonly string image;
 		readonly Sequence[] sequences;
 		readonly int ticksPerFrame;
@@ -24,6 +26,7 @@ namespace OpenRPG.Traits
 
 		public RenderSprite(Actor self, RenderSpriteInfo info)
 		{
+			world = self.World;
 			image = info.Animation ?? self.Info.Name;
 
 			sequences = self.World.Game.Animations[image].Sequences;
@@ -38,7 +41,6 @@ namespace OpenRPG.Traits
 
 		public void TickRender(Actor self)
 		{
-			var world = self.World;
 			var sprite = CurrentSequence.Sprite;
 
 			var frameSize = CurrentSequence.FrameSize;
@@ -62,8 +64,16 @@ namespace OpenRPG.Traits
 				currentFrame = 0;
 
 			// TODO: World -> Screen
-			var pos = new Point(self.Position.X, self.Position.Y);
+			var pos = new Point2(self.WorldPosition.X, self.WorldPosition.Y);
 			world.RenderImage(sprite, sourceRect, pos);
+
+			_DrawSpriteBounds(pos, new SSize(frameSize.Width, frameSize.Height));
+		}
+
+		void _DrawSpriteBounds(Point2 topLeft, SSize size)
+		{
+			var bottomRight = new Point2(topLeft.X + size.Width, topLeft.Y + size.Height);
+			world.LineRenderer.DrawRectangle(topLeft, bottomRight, Color.Blue);
 		}
 	}
 }

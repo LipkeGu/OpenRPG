@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OpenRPG.Graphics;
+using SSize = System.Drawing.Size;
 
 namespace OpenRPG
 {
@@ -16,12 +17,12 @@ namespace OpenRPG
 		public readonly Dictionary<string, Texture2D> Textures = new Dictionary<string, Texture2D>();
 		public readonly Dictionary<string, Animation> Animations = new Dictionary<string, Animation>();
 		public readonly Dictionary<string, ActorInfo> ActorRules = new Dictionary<string, ActorInfo>();
+		public readonly SSize WindowSize;
+		public readonly Rectangle ClientBounds;
 
 		public SpriteBatch SpriteBatch { get; private set; }
 
 		int ticks;
-		MouseState prevMouseState;
-		KeyboardState prevKeyboardState;
 
 		readonly World world;
 		readonly InputManager inputMan;
@@ -34,12 +35,19 @@ namespace OpenRPG
 			IsMouseVisible = true;
 			Content.RootDirectory = ContentDirectory;
 			Window.AllowUserResizing = false;
+			WindowSize = new SSize
+			(
+				GraphicsDevice.Viewport.Width,
+				GraphicsDevice.Viewport.Height
+			);
+			ClientBounds = Window.ClientBounds;
 
 			// 30 ticks/second
 			TargetElapsedTime = TimeSpan.FromSeconds(1f / 30f);
 
+			SpriteBatch = new SpriteBatch(GraphicsDevice);
 			world = new World(this);
-			inputMan = new InputManager(this);
+			inputMan = new InputManager(world);
 			creator = new ObjectCreator();
 		}
 
@@ -78,18 +86,6 @@ namespace OpenRPG
 		// TODO: Properly use gameTime so we're independent of tick-rate
 		protected override void Update(GameTime gameTime)
 		{
-			var mouseState = Mouse.GetState();
-			var keyboardState = Keyboard.GetState();
-
-			if (mouseState != prevMouseState)
-				inputMan.HandleMouse(mouseState);
-
-			if (keyboardState != prevKeyboardState)
-				inputMan.HandleKeyboard(keyboardState);
-
-			prevMouseState = mouseState;
-			prevKeyboardState = keyboardState;
-
 			++ticks;
 			world.Tick();
 			base.Update(gameTime);
@@ -100,8 +96,17 @@ namespace OpenRPG
 			GraphicsDevice.Clear(Color.Black);
 			SpriteBatch.Begin();
 			world.TickRender();
+			HandleInput();
 			SpriteBatch.End();
 			base.Draw(gameTime);
+		}
+
+		void HandleInput()
+		{
+			var mouseState = Mouse.GetState();
+			var keyboardState = Keyboard.GetState();
+			inputMan.HandleMouse(mouseState);
+			inputMan.HandleKeyboard(keyboardState);
 		}
 
 		public static string ContentFileFromString(string str)
@@ -111,8 +116,6 @@ namespace OpenRPG
 
 		protected override void LoadContent()
 		{
-			SpriteBatch = new SpriteBatch(GraphicsDevice);
-
 			// 1) Parse data tree (get filenames to load)
 			// 2) Load image files as Texture2D
 			// 3) Construct Sprite -> Animation relationship

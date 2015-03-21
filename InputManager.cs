@@ -1,30 +1,29 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace OpenRPG
 {
 	public class InputManager
 	{
-		readonly Game game;
+		readonly World world;
 
-		public InputManager(Game game)
+		public InputManager(World world)
 		{
-			this.game = game;
+			this.world = world;
 		}
 
 		public void HandleMouse(MouseState currMouse)
 		{
-			var left = currMouse.LeftButton;
-			var scroll = currMouse.ScrollWheelValue;
-			var right = currMouse.RightButton;
-
-			Console.WriteLine(left.ToString());
+			// var left = currMouse.LeftButton;
+			// var scroll = currMouse.ScrollWheelValue;
+			// var right = currMouse.RightButton;
 		}
 		
 		public void HandleKeyboard(KeyboardState currKey)
 		{
 			if (currKey.IsKeyDown(Keys.Escape))
-				game.Exit();
+				world.Game.Exit();
 		}
 	}
 }

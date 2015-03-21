@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Xna.Framework;
 
 namespace OpenRPG
 {
@@ -29,6 +30,16 @@ namespace OpenRPG
 		public static string ReverseSubstring(this string str, int count)
 		{
 			return str.Substring(0, str.Length - count);
+		}
+
+		public static Point2 TopLeft(this Rectangle rect)
+		{
+			return new Point2(rect.Top, rect.Left);
+		}
+
+		public static Point2 TopRight(this Rectangle rect)
+		{
+			return new Point2(rect.Top, rect.Right);
 		}
 	}
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using OpenRPG.Graphics;
+using SSize = System.Drawing.Size;
 
 namespace OpenRPG
 {
@@ -11,6 +12,11 @@ namespace OpenRPG
 		public int AbsoluteTicks;
 
 		public readonly Game Game;
+		public readonly Map Map;
+		public readonly LineRenderer LineRenderer;
+
+		public SSize WindowSize { get { return Game.WindowSize; } }
+		public Rectangle WindowClientBounds { get { return Game.ClientBounds; } }
 
 		readonly List<Actor> actors = new List<Actor>();
 		readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>(100);
@@ -18,6 +24,8 @@ namespace OpenRPG
 		public World(Game game)
 		{
 			Game = game;
+			Map = new Map(new SSize(16, 16), new SSize(10, 10));
+			LineRenderer = new LineRenderer(this);
 		}
 
 		public void AddFrameEndAction(Action<World> a)
@@ -57,14 +65,21 @@ namespace OpenRPG
 
 		public void TickRender()
 		{
+			LineRenderer.DrawRectangle
+			(
+				new Point2(0, 0),
+				new Point2(WindowSize.Width, WindowSize.Height),
+				Color.Red
+			);
+
 			foreach (var actor in actors)
 				foreach (var trait in actor.TraitsImplementing<ITickRender>())
 					trait.TickRender(actor);
 		}
 
-		public void RenderImage(Sprite sprite, Rectangle sourceRect, Point onScreenPoint)
+		public void RenderImage(Sprite sprite, Rectangle sourceRect, Point2 topLeft)
 		{
-			var screenRect = new Rectangle(onScreenPoint.X, onScreenPoint.Y, sourceRect.Width, sourceRect.Height);
+			var screenRect = new Rectangle(topLeft.X, topLeft.Y, sourceRect.Width, sourceRect.Height);
 
 			Game.SpriteBatch.Draw(sprite.Texture,
 				screenRect,

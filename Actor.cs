@@ -56,7 +56,8 @@ namespace OpenRPG
 		bool isDead = false;
 		public bool IsDead { get { return isDead; } }
 
-		public Point3 Position { get; private set; }
+		// TODO: Cell position vs World position.
+		public WPos WorldPosition { get; private set; }
 
 		public readonly World World;
 		public readonly string Name;
@@ -65,9 +66,8 @@ namespace OpenRPG
 		readonly List<ITrait> traits = new List<ITrait>();
 
 		// TODO:
-		// * Possibly create Point3 type (x, y, z)
-		// Should we use Point (with large ints) as Position and Vector3 as locomotion vectors?
-		// If so: How will we translate from world -> screen if both use Point
+		// Should we use WPos (with large ints) as Position and therefor Vector3 as locomotion vectors?
+		// If so: How will we translate from world -> screen if both use Point(3D -> 2D)
 
 		public Actor(World world, string name)
 		{
