@@ -135,5 +135,10 @@ namespace OpenRPG
 			foreach (var ruleFile in rules)
 				LoadActorTypes(ruleFile);
 		}
+
+		public static void Debug(string str, params object[] fmt)
+		{
+			Console.WriteLine("Debug: " + str, fmt);
+		}
 	}
 }
