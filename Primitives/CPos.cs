@@ -4,13 +4,12 @@ namespace OpenRPG
 {
 	public struct CPos
 	{
-		public readonly int X, Y, Z;
+		public readonly int X, Y;
 
 		public CPos(int x, int y, int z)
 		{
 			X = x;
 			Y = y;
-			Z = z;
 		}
 
 		public static CPos Empty
@@ -38,12 +37,12 @@ namespace OpenRPG
 
 		public override int GetHashCode()
 		{
-			return X ^ Y ^ Z;
+			return X ^ Y;
 		}
 
 		public override string ToString()
 		{
-			return "{{0},{1},{2}}".F(X, Y, Z);
+			return "({0},{1})".F(X, Y);
 		}
 	}
 }

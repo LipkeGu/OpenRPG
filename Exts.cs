@@ -32,14 +32,14 @@ namespace OpenRPG
 			return str.Substring(0, str.Length - count);
 		}
 
-		public static Point2 TopLeft(this Rectangle rect)
+		public static Point TopLeft(this Rectangle rect)
 		{
-			return new Point2(rect.Top, rect.Left);
+			return new Point(rect.Top, rect.Left);
 		}
 
-		public static Point2 TopRight(this Rectangle rect)
+		public static Point TopRight(this Rectangle rect)
 		{
-			return new Point2(rect.Top, rect.Right);
+			return new Point(rect.Top, rect.Right);
 		}
 	}
 }

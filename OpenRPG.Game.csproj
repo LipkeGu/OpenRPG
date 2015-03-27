@@ -40,7 +40,6 @@
     <Compile Include="Map.cs" />
     <Compile Include="MetadataTree.cs" />
     <Compile Include="ObjectCreator.cs" />
-    <Compile Include="Primitives\Point2.cs" />
     <Compile Include="Primitives\CPos.cs" />
     <Compile Include="Primitives\WPos.cs" />
     <Compile Include="Program.cs" />

@@ -64,15 +64,15 @@ namespace OpenRPG.Traits
 				currentFrame = 0;
 
 			// TODO: World -> Screen
-			var pos = new Point2(self.WorldPosition.X, self.WorldPosition.Y);
+			var pos = new Point(self.WorldPosition.X, self.WorldPosition.Y);
 			world.RenderImage(sprite, sourceRect, pos);
 
 			_DrawSpriteBounds(pos, new SSize(frameSize.Width, frameSize.Height));
 		}
 
-		void _DrawSpriteBounds(Point2 topLeft, SSize size)
+		void _DrawSpriteBounds(Point topLeft, SSize size)
 		{
-			var bottomRight = new Point2(topLeft.X + size.Width, topLeft.Y + size.Height);
+			var bottomRight = new Point(topLeft.X + size.Width, topLeft.Y + size.Height);
 			world.LineRenderer.DrawRectangle(topLeft, bottomRight, Color.Blue);
 		}
 	}

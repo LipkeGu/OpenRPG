@@ -67,8 +67,8 @@ namespace OpenRPG
 		{
 			LineRenderer.DrawRectangle
 			(
-				new Point2(0, 0),
-				new Point2(WindowSize.Width, WindowSize.Height),
+				new Point(0, 0),
+				new Point(WindowSize.Width, WindowSize.Height),
 				Color.Red
 			);
 
@@ -77,7 +77,7 @@ namespace OpenRPG
 					trait.TickRender(actor);
 		}
 
-		public void RenderImage(Sprite sprite, Rectangle sourceRect, Point2 topLeft)
+		public void RenderImage(Sprite sprite, Rectangle sourceRect, Point topLeft)
 		{
 			var screenRect = new Rectangle(topLeft.X, topLeft.Y, sourceRect.Width, sourceRect.Height);
 
