@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>OpenRPG.Tester</RootNamespace>
-    <AssemblyName>OpenRPG.Tester</AssemblyName>
+    <RootNamespace>OpenRPG.Utility</RootNamespace>
+    <AssemblyName>utility</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

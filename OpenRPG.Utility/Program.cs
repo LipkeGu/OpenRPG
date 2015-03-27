@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenRPG.Parsers;
 
-namespace OpenRPG.Tester
+namespace OpenRPG.Utility
 {
 	class MainClass
 	{
@@ -10,7 +10,7 @@ namespace OpenRPG.Tester
 			if (args.Length == 0)
 				Environment.Exit(1);
 
-			Console.WriteLine("OpenRPG.Tester -- used to test format parsing");
+			Console.WriteLine("OpenRPG.Utility -- used to test format parsing");
 			Console.WriteLine("Currently only works for palettes.");
 			Console.WriteLine();
 

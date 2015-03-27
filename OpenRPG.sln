@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Game", "OpenRPG.Gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Parsers", "OpenRPG.Parsers\OpenRPG.Parsers.csproj", "{2416BB4D-6FF6-4559-AD17-50107BC06E3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Tester", "OpenRPG.Tester\OpenRPG.Tester.csproj", "{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Utility", "OpenRPG.Utility\OpenRPG.Utility.csproj", "{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
