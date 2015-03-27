@@ -1,15 +1,30 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Core", "OpenRPG.Core.csproj", "{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Game", "OpenRPG.Game.csproj", "{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Parsers", "OpenRPG.Parsers\OpenRPG.Parsers.csproj", "{2416BB4D-6FF6-4559-AD17-50107BC06E3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRPG.Tester", "OpenRPG.Tester\OpenRPG.Tester.csproj", "{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2416BB4D-6FF6-4559-AD17-50107BC06E3F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2416BB4D-6FF6-4559-AD17-50107BC06E3F}.Debug|x86.Build.0 = Debug|Any CPU
+		{2416BB4D-6FF6-4559-AD17-50107BC06E3F}.Release|x86.ActiveCfg = Release|Any CPU
+		{2416BB4D-6FF6-4559-AD17-50107BC06E3F}.Release|x86.Build.0 = Release|Any CPU
+		{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}.Debug|x86.ActiveCfg = Debug|x86
+		{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}.Debug|x86.Build.0 = Debug|x86
+		{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}.Release|x86.ActiveCfg = Release|x86
+		{2EF959FB-0F2D-42D6-9366-C5D1EA57B6EB}.Release|x86.Build.0 = Release|x86
 		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Debug|x86.ActiveCfg = Debug|x86
 		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Debug|x86.Build.0 = Debug|x86
+		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Release|x86.ActiveCfg = Debug|x86
+		{FABA3C1E-E492-40CA-9E5F-AFFDD25090F8}.Release|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		outputpath = .
