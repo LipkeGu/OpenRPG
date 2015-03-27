@@ -6,21 +6,22 @@ all: clean
 	@cp thirdparty/osx/*.dylib .
 	@cp thirdparty/*.config .
 	@printf " done\n"
-	@printf "Building..."
-	@xbuild $(XBFLAGS)
-	@printf " done\n"
 	@cd lib/fna/ \
 		&& printf "Building fna..." \
 		&& xbuild $(XBFLAGS) \
 		&& printf " done\n" \
 		&& printf "Copying FNA.dll..." \
-		&& cp bin/Debug/FNA.dll $(ROOT) \
+		&& cp bin/Debug/FNA.dll $(ROOT)/thirdparty \
 		&& printf " done\n" \
 		&& cd $(ROOT)
+	@printf "Building..."
+	@xbuild $(XBFLAGS)
+	@printf " done\n"
 
 subs:
 	@printf "Updating submodules..."
 	@git submodule update
+	@cp lib/fna/bin/Debug/FNA.dll $(ROOT)/thirdparty
 	@printf " done\n"
 
 clean:
